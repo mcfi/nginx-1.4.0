@@ -1943,11 +1943,11 @@ ngx_http_send_header(ngx_http_request_t *r)
 
 
 ngx_int_t
-ngx_http_output_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_output_filter(void *context, ngx_chain_t *in)
 {
     ngx_int_t          rc;
     ngx_connection_t  *c;
-
+    ngx_http_request_t *r = (ngx_http_request_t *)context;
     c = r->connection;
 
     ngx_log_debug2(NGX_LOG_DEBUG_HTTP, c->log, 0,

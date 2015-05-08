@@ -313,12 +313,13 @@ ngx_http_gzip_header_filter(ngx_http_request_t *r)
 
 
 static ngx_int_t
-ngx_http_gzip_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_gzip_body_filter(void *context, ngx_chain_t *in)
 {
     int                   rc;
     ngx_chain_t          *cl;
     ngx_http_gzip_ctx_t  *ctx;
 
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
     ctx = ngx_http_get_module_ctx(r, ngx_http_gzip_filter_module);
 
     if (ctx == NULL || ctx->done || r->header_only) {

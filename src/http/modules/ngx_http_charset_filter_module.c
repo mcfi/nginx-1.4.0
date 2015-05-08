@@ -540,13 +540,13 @@ ngx_http_charset_ctx(ngx_http_request_t *r, ngx_http_charset_t *charsets,
 
 
 static ngx_int_t
-ngx_http_charset_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_charset_body_filter(void *context, ngx_chain_t *in)
 {
     ngx_int_t                rc;
     ngx_buf_t               *b;
     ngx_chain_t             *cl, *out, **ll;
     ngx_http_charset_ctx_t  *ctx;
-
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
     ctx = ngx_http_get_module_ctx(r, ngx_http_charset_filter_module);
 
     if (ctx == NULL || ctx->table == NULL) {

@@ -230,11 +230,12 @@ ngx_http_xslt_header_filter(ngx_http_request_t *r)
 
 
 static ngx_int_t
-ngx_http_xslt_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_xslt_body_filter(void *context, ngx_chain_t *in)
 {
     int                          wellFormed;
     ngx_chain_t                 *cl;
     ngx_http_xslt_filter_ctx_t  *ctx;
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
 
     ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
                    "xslt filter body");

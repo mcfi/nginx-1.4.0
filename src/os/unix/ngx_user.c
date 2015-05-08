@@ -32,7 +32,6 @@ ngx_libc_crypt(ngx_pool_t *pool, u_char *key, u_char *salt, u_char **encrypted)
 
     cd.initialized = 0;
     /* work around the glibc bug */
-    cd.current_salt[0] = ~salt[0];
 
     value = crypt_r((char *) key, (char *) salt, &cd);
 

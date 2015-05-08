@@ -82,7 +82,7 @@ typedef struct {
 } ngx_http_compile_complex_value_t;
 
 
-typedef void (*ngx_http_script_code_pt) (ngx_http_script_engine_t *e);
+typedef size_t (*ngx_http_script_code_pt) (ngx_http_script_engine_t *e);
 typedef size_t (*ngx_http_script_len_code_pt) (ngx_http_script_engine_t *e);
 
 
@@ -229,11 +229,11 @@ void *ngx_http_script_start_code(ngx_pool_t *pool, ngx_array_t **codes,
 void *ngx_http_script_add_code(ngx_array_t *codes, size_t size, void *code);
 
 size_t ngx_http_script_copy_len_code(ngx_http_script_engine_t *e);
-void ngx_http_script_copy_code(ngx_http_script_engine_t *e);
+size_t ngx_http_script_copy_code(ngx_http_script_engine_t *e);
 size_t ngx_http_script_copy_var_len_code(ngx_http_script_engine_t *e);
-void ngx_http_script_copy_var_code(ngx_http_script_engine_t *e);
+size_t ngx_http_script_copy_var_code(ngx_http_script_engine_t *e);
 size_t ngx_http_script_copy_capture_len_code(ngx_http_script_engine_t *e);
-void ngx_http_script_copy_capture_code(ngx_http_script_engine_t *e);
+size_t ngx_http_script_copy_capture_code(ngx_http_script_engine_t *e);
 size_t ngx_http_script_mark_args_code(ngx_http_script_engine_t *e);
 void ngx_http_script_start_args_code(ngx_http_script_engine_t *e);
 #if (NGX_PCRE)

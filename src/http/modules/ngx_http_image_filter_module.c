@@ -276,13 +276,14 @@ ngx_http_image_header_filter(ngx_http_request_t *r)
 
 
 static ngx_int_t
-ngx_http_image_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_image_body_filter(void *context, ngx_chain_t *in)
 {
     ngx_int_t                      rc;
     ngx_str_t                     *ct;
     ngx_chain_t                    out;
     ngx_http_image_filter_ctx_t   *ctx;
     ngx_http_image_filter_conf_t  *conf;
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
 
     ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0, "image filter");
 

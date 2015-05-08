@@ -604,13 +604,14 @@ ngx_http_spdy_header_filter(ngx_http_request_t *r)
 
 
 static ngx_int_t
-ngx_http_spdy_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_spdy_body_filter(void *context, ngx_chain_t *in)
 {
     off_t                       size;
     ngx_buf_t                  *b;
     ngx_chain_t                *cl, *ll, *out, **ln;
     ngx_http_spdy_stream_t     *stream;
     ngx_http_spdy_out_frame_t  *frame;
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
 
     stream = r->spdy_stream;
 

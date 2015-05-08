@@ -572,6 +572,9 @@ ngx_event_module_init(ngx_cycle_t *cycle)
 #if !(NGX_WIN32)
 
 static void
+ngx_timer_signal_handler(int signo) __attribute__((signalhandler));
+
+static void
 ngx_timer_signal_handler(int signo)
 {
     ngx_event_timer_alarm = 1;

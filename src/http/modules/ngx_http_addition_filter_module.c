@@ -128,7 +128,7 @@ ngx_http_addition_header_filter(ngx_http_request_t *r)
 
 
 static ngx_int_t
-ngx_http_addition_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_addition_body_filter(void *context, ngx_chain_t *in)
 {
     ngx_int_t                  rc;
     ngx_uint_t                 last;
@@ -137,6 +137,7 @@ ngx_http_addition_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
     ngx_http_addition_ctx_t   *ctx;
     ngx_http_addition_conf_t  *conf;
 
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
     if (in == NULL || r->header_only) {
         return ngx_http_next_body_filter(r, in);
     }

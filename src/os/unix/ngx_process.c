@@ -21,7 +21,7 @@ typedef struct {
 
 
 static void ngx_execute_proc(ngx_cycle_t *cycle, void *data);
-static void ngx_signal_handler(int signo);
+static void ngx_signal_handler(int signo) __attribute__((signalhandler));
 static void ngx_process_get_status(void);
 static void ngx_unlock_mutexes(ngx_pid_t pid);
 

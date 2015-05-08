@@ -369,7 +369,7 @@ ngx_http_ssi_header_filter(ngx_http_request_t *r)
 
 
 static ngx_int_t
-ngx_http_ssi_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_ssi_body_filter(void *context, ngx_chain_t *in)
 {
     size_t                     len;
     ngx_int_t                  rc;
@@ -384,7 +384,7 @@ ngx_http_ssi_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
     ngx_http_ssi_loc_conf_t   *slcf;
     ngx_http_ssi_main_conf_t  *smcf;
     ngx_str_t                 *params[NGX_HTTP_SSI_MAX_PARAMS + 1];
-
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
     ctx = ngx_http_get_module_ctx(r, ngx_http_ssi_filter_module);
 
     if (ctx == NULL

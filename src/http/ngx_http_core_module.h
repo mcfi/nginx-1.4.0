@@ -518,12 +518,11 @@ ngx_http_cleanup_t *ngx_http_cleanup_add(ngx_http_request_t *r, size_t size);
 
 
 typedef ngx_int_t (*ngx_http_output_header_filter_pt)(ngx_http_request_t *r);
-typedef ngx_int_t (*ngx_http_output_body_filter_pt)
-    (ngx_http_request_t *r, ngx_chain_t *chain);
+typedef ngx_int_t (*ngx_http_output_body_filter_pt) (void *ctx, ngx_chain_t *chain);
 
 
-ngx_int_t ngx_http_output_filter(ngx_http_request_t *r, ngx_chain_t *chain);
-ngx_int_t ngx_http_write_filter(ngx_http_request_t *r, ngx_chain_t *chain);
+ngx_int_t ngx_http_output_filter(void *ctx, ngx_chain_t *chain);
+ngx_int_t ngx_http_write_filter(void *ctx, ngx_chain_t *chain);
 
 
 ngx_int_t ngx_http_set_disable_symlinks(ngx_http_request_t *r,

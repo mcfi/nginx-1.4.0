@@ -573,10 +573,10 @@ ngx_http_range_not_satisfiable(ngx_http_request_t *r)
 
 
 static ngx_int_t
-ngx_http_range_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_range_body_filter(void *context, ngx_chain_t *in)
 {
     ngx_http_range_filter_ctx_t  *ctx;
-
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
     if (in == NULL) {
         return ngx_http_next_body_filter(r, in);
     }

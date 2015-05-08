@@ -70,7 +70,7 @@ ngx_uint_t   ngx_http_max_module;
 
 
 ngx_int_t  (*ngx_http_top_header_filter) (ngx_http_request_t *r);
-ngx_int_t  (*ngx_http_top_body_filter) (ngx_http_request_t *r, ngx_chain_t *ch);
+ngx_int_t  (*ngx_http_top_body_filter) (void *ctx, ngx_chain_t *ch);
 
 
 ngx_str_t  ngx_http_html_default_types[] = {

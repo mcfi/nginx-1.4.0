@@ -78,7 +78,7 @@ static ngx_http_output_body_filter_pt    ngx_http_next_body_filter;
 
 
 static ngx_int_t
-ngx_http_copy_filter(ngx_http_request_t *r, ngx_chain_t *in)
+ngx_http_copy_filter(void *context, ngx_chain_t *in)
 {
     ngx_int_t                     rc;
     ngx_connection_t             *c;
@@ -86,6 +86,7 @@ ngx_http_copy_filter(ngx_http_request_t *r, ngx_chain_t *in)
     ngx_http_core_loc_conf_t     *clcf;
     ngx_http_copy_filter_conf_t  *conf;
 
+    ngx_http_request_t *r = (ngx_http_request_t*)context;
     c = r->connection;
 
     ngx_log_debug2(NGX_LOG_DEBUG_HTTP, c->log, 0,
