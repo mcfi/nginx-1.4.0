@@ -50,7 +50,7 @@
    ```mkdir $NGINX/html/wp-content/uploads```
 
 7. Use the following configuration file for nginx. Start nginx and access
-   the front page by http://localhost/wp-admin/install.php using a browser.
+   the front page through ```http://localhost/wp-admin/install.php``` using a browser.
 
 ```
 #user  nobody;
