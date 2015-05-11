@@ -1,46 +1,58 @@
-How to use MCFI/PICFI to harden nginx-1.4.0 and support word press.
+# Build nginx-1.4.0 and host wordpress.
 
-0. You need to compile MCFI/PICFI toolchain!
+1. You need to compile MCFI/PICFI toolchain! Download it here at https://github.com/mcfi/MCFI and follow the instructions.
 
-1. See nginx.sh for how nginx.sh is build.
+2. Execute nginx.sh in this directory to build and install nginx.
 
-2. Install mysql, php5-mysql and php5-fpm by
+3. Install mysql, php5-mysql and php5-fpm using the following command
+
+   ```sudo apt-get install mysql-server php5-mysql php5-fpm php5-gd libssh2-php```
+
+4. In config file (```/etc/php5/fpm/pool.d/www.conf```) for php5-fpm,
+   change "user" to the user name of nginx's executable.
    
-   sudo apt-get install mysql-server php5-mysql php5-fpm php5-gd libssh2-php
-
-3. In config file (/etc/php5/fpm/pool.d/www.conf) for php5-fpm,
-   change "user" to the user name of nginx's executable;
-   uncomment listen.allowed_clients = 127.0.0.1 to allow local connections.
-   su && chmod o+rw php5-fpm.sock # make this socket connectable
-
-4. Create a MySQL database
-   mysql -u root -p
-   CREATE DATABASE wordpress;
-   CREATE USER wordpressuser@localhost IDENTIFIED BY 'password';
-   GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost;
-   FLUSH PRIVILEGES;
-   exit
-
-5. Download wordpress and decompress it to $WORDPRESS.
-   cd $WORDPRESS
-   cp wp-config-sample.php wp-config.php
-
-   Set mysql credentials below:
-   define('DB_NAME', 'wordpress');
-   define('DB_USER', 'wordpressuser');
-   define('DB_PASSWORD', 'password');
-
-   # copy wordpress files to nginx installation dir's html subdir
-   rsync -avP $WORDPRESS/ $NGINX/html/
+   Uncomment ```listen.allowed_clients = 127.0.0.1``` to allow local connections.
    
-   mkdir $NGINX/html/wp-content/uploads
+   Make php5-fpm connectable from non-root users
 
-6. Use the following configuration file for nginx. Start nginx and access
-   the front page by localhost/wp-admin/install.php
+   ```su && chmod o+rw php5-fpm.sock```
 
-=====================================
+5. Create a MySQL database
+   
+   Type ```mysql -u root -p``` in bash and execute the following commands.
+   
+   ```CREATE DATABASE wordpress;```
+   
+   ```CREATE USER wordpressuser@localhost IDENTIFIED BY 'password';```
+   
+   ```GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost;```
+   
+   ```FLUSH PRIVILEGES;```
 
+6. Download wordpress and decompress it to $WORDPRESS.
+   
+   ```cd $WORDPRESS``
+   
+   ``cp wp-config-sample.php wp-config.php``
 
+   Open wp-config.php and modify the following configuration as below:
+   
+   ``define('DB_NAME', 'wordpress');```
+   
+   ```define('DB_USER', 'wordpressuser');```
+   
+   ```define('DB_PASSWORD', 'password');```
+
+   Copy wordpress files to nginx installation dir's html subdir
+   
+   ```rsync -avP $WORDPRESS/ $NGINX/html/```
+   
+   ```mkdir $NGINX/html/wp-content/uploads```
+
+7. Use the following configuration file for nginx. Start nginx and access
+   the front page by http://localhost/wp-admin/install.php using a browser.
+
+```
 #user  nobody;
 worker_processes  1;
 
@@ -124,3 +136,4 @@ http {
         #}
     }
 }
+```
