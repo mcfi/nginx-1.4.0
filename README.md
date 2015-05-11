@@ -29,15 +29,15 @@
    
    ```FLUSH PRIVILEGES;```
 
-6. Download wordpress and decompress it to $WORDPRESS.
+6. Download wordpress and decompress it to ~/wordpress.
    
-   ```cd $WORDPRESS``
+   ```cd ~/wordpress```
    
-   ``cp wp-config-sample.php wp-config.php``
+   ```cp wp-config-sample.php wp-config.php```
 
    Open wp-config.php and modify the following configuration as below:
    
-   ``define('DB_NAME', 'wordpress');```
+   ```define('DB_NAME', 'wordpress');```
    
    ```define('DB_USER', 'wordpressuser');```
    
